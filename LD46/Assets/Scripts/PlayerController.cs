@@ -34,7 +34,9 @@ public class PlayerController : MonoBehaviour
                                   Input.GetAxis("Vertical") * speed,
                                   0f);
 
-        //this.transform.rotation = Quaternion.SetLookRotation(rb.velocity);
+        Vector2 v = rb.velocity;
+        float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
 

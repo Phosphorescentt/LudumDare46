@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     public float stopping_dist;
     public int throw_cooldown = 1;
     private Rigidbody2D rb;
+    private Vector2 v;
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +33,19 @@ public class EnemyController : MonoBehaviour
 
         if (dist.magnitude < range && dist.magnitude > stopping_dist || !ranged)
         {
+            v = dist;
             Debug.DrawLine(this.transform.position, player.transform.position);
             rb.velocity = -dist.normalized * speed;
         } else if(dist.magnitude <= stopping_dist) {
+            v = dist;
             rb.velocity = Vector3.zero;
         } else if(dist.magnitude > range) {
             rb.velocity = Vector3.zero;
         }
+
+
+        float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 
         if(dist.magnitude < attack_range && !throwing) {
