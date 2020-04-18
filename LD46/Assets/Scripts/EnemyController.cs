@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     public float throw_speed;
     public float attack_range = 2f;
     public bool throwing = false;
+    public float stopping_dist;
+    public int throw_cooldown = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,7 @@ public class EnemyController : MonoBehaviour
 
         Vector3 dist = this.transform.position - player.transform.position;
 
-        if (dist.magnitude < range || !ranged)
+        if (dist.magnitude < range && dist.magnitude > stopping_dist || !ranged)
         {
             Debug.DrawLine(this.transform.position, player.transform.position);
             this.transform.position = this.transform.position - (Vector3.Normalize(dist) * speed) * Time.deltaTime;
@@ -45,24 +47,17 @@ public class EnemyController : MonoBehaviour
 
         GameObject projectile = Instantiate(projectile_prefab, this.transform.position, Quaternion.identity);
         Vector3 dir = Vector3.Normalize(this.transform.position - obj.transform.position);
-        StartCoroutine(throw_enum(projectile, dir, 3));
+        StartCoroutine(projectile.GetComponent<ProjectileController>().throw_enum(projectile, dir, 1, throw_speed));
+        StartCoroutine(wait_for_throw());
 
     }
 
-    public IEnumerator throw_enum(GameObject projectile, Vector3 dir, int loopDuration) {
-
-        float time = 0.0f;
-
-        do{
-
-            projectile.transform.position = projectile.transform.position - (dir * throw_speed) * Time.deltaTime;
-            time += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-
-        } while (time < loopDuration);
-
-        throwing = false;        
-
+    public IEnumerator wait_for_throw() {
+    
+        yield return new WaitForSeconds(throw_cooldown);
+        throwing = false;
+    
     }
+
 
 }
