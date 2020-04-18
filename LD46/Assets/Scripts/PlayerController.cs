@@ -19,28 +19,28 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("up"))
         {
 
-            this.transform.position = this.transform.position + Vector3.up * speed * Time.deltaTime;
+            this.transform.position = this.transform.position + (Vector3.up * speed) * Time.deltaTime;
 
         }
 
         if (Input.GetKey("down"))
         {
 
-            this.transform.position = this.transform.position + Vector3.down * speed * Time.deltaTime;
+            this.transform.position = this.transform.position + (Vector3.down * speed) * Time.deltaTime;
 
         }
 
         if (Input.GetKey("left"))
         {
 
-            this.transform.position = this.transform.position + Vector3.left * speed * Time.deltaTime;
+            this.transform.position = this.transform.position + (Vector3.left * speed) * Time.deltaTime;
 
         }
 
         if (Input.GetKey("right"))
         {
 
-            this.transform.position = this.transform.position + Vector3.right * speed * Time.deltaTime;
+            this.transform.position = this.transform.position + (Vector3.right * speed) * Time.deltaTime;
 
         }
     }
