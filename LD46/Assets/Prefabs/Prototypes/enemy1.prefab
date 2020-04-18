@@ -96,14 +96,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2c8e392ca3618449c74945f0027cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 4
+  range: 20
   ranged: 1
-  speed: 1.5
+  speed: 7
   projectile_prefab: {fileID: 5783427515810135018, guid: d5247b6906262364c825c44a885d7653,
     type: 3}
-  throw_speed: 8
-  attack_range: 2
-  stopping_dist: 1
+  throw_speed: 15
+  attack_range: 5
+  stopping_dist: 3
   throw_cooldown: 1
 --- !u!61 &5871435205511115742
 BoxCollider2D:
@@ -122,14 +122,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &1623294989875756016
 Rigidbody2D:

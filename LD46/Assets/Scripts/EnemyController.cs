@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
     public void throw_projectile(GameObject obj){
 
         Vector3 dir = (this.transform.position - obj.transform.position).normalized;
-        GameObject projectile = Instantiate(projectile_prefab, this.transform.position + dir*-0.2f, Quaternion.identity);
+        GameObject projectile = Instantiate(projectile_prefab, this.transform.position + dir*-1f, Quaternion.identity);
         projectile.GetComponent<ProjectileController>().setDirection(dir);
         projectile.GetComponent<ProjectileController>().setSpeed(throw_speed);
         StartCoroutine(wait_for_throw());
