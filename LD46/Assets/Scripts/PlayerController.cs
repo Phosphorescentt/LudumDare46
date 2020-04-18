@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 1;
     public HealthController health;
     private Rigidbody2D rb;
+    public PlayerShooter shooter;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,14 @@ public class PlayerController : MonoBehaviour
         {
             health.bleed(5, 10);
         }
+
+        if(Input.GetButtonUp("Fire1")) {
+
+            Debug.Log("Shooting");
+            shooter.shoot();            
+
+        }
+
     }
     
     void FixedUpdate() {
@@ -34,9 +43,11 @@ public class PlayerController : MonoBehaviour
                                   Input.GetAxis("Vertical") * speed,
                                   0f);
 
-        Vector2 v = rb.velocity;
-        float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        var mouse = Input.mousePosition;
+        var screenPoint = Camera.main.WorldToScreenPoint(transform.localPosition);
+        var offset = new Vector2(mouse.x - screenPoint.x, mouse.y - screenPoint.y);
+        var angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
 
     }
 

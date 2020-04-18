@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2858543295384474825}
   - component: {fileID: 24065518264509314}
   - component: {fileID: 6954306983902673054}
+  - component: {fileID: 2227032164182648251}
   - component: {fileID: 5187396355792359308}
   - component: {fileID: 3188931291079275019}
   m_Layer: 0
@@ -99,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   health: {fileID: 6954306983902673054}
+  shooter: {fileID: 2227032164182648251}
 --- !u!114 &6954306983902673054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +114,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+--- !u!114 &2227032164182648251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183221744082585097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485c59ff69a07d64692ad1b292b96e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile_prefab: {fileID: 5783427515810135018, guid: d5247b6906262364c825c44a885d7653,
+    type: 3}
+  shoot_speed: 15
 --- !u!61 &5187396355792359308
 BoxCollider2D:
   m_ObjectHideFlags: 0
