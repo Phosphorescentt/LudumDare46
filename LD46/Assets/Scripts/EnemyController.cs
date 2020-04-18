@@ -12,26 +12,28 @@ public class EnemyController : MonoBehaviour
     public GameObject projectile_prefab;
     public float throw_speed;
     public float attack_range = 2f;
-    public bool throwing = false;
+    private bool throwing = false;
     public float stopping_dist;
     public int throw_cooldown = 1;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("player").GetComponent<PlayerController>();  
+        rb = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        Vector3 dist = this.transform.position - player.transform.position;
+        Vector2 dist = this.transform.position - player.transform.position;
 
         if (dist.magnitude < range && dist.magnitude > stopping_dist || !ranged)
         {
             Debug.DrawLine(this.transform.position, player.transform.position);
-            this.transform.position = this.transform.position - (Vector3.Normalize(dist) * speed) * Time.deltaTime;
+            rb.MovePosition(rb.position - (dist.normalized*speed) * Time.deltaTime);
         }
 
         if(dist.magnitude < attack_range && !throwing) {
@@ -45,9 +47,10 @@ public class EnemyController : MonoBehaviour
 
     public void throw_projectile(GameObject obj){
 
+        Vector2 dir = (this.transform.position - obj.transform.position).normalized;
         GameObject projectile = Instantiate(projectile_prefab, this.transform.position, Quaternion.identity);
-        Vector3 dir = Vector3.Normalize(this.transform.position - obj.transform.position);
-        StartCoroutine(projectile.GetComponent<ProjectileController>().throw_enum(projectile, dir, 1, throw_speed));
+        projectile.GetComponent<ProjectileController>().setDirection(dir);
+        projectile.GetComponent<ProjectileController>().setSpeed(throw_speed);
         StartCoroutine(wait_for_throw());
 
     }
