@@ -8,6 +8,7 @@ TagManager:
   - player
   - enemy
   - Spawn Point
+  - Rooms
   layers:
   - Default
   - TransparentFX

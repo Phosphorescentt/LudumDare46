@@ -15,15 +15,21 @@ public class RoomSpawner : MonoBehaviour
     
     private int rand;
     private GameObject room;
+    private GameObject[] rooms;
+    private GameObject[] deadEnds;
     private GameObject newRoom;
+    private GameObject newClosedRoom;
     private bool spawned = false;
 
     void Start() {
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+        grid = templates.grid;
         if (openingDirection != 0 && templates.size <= templates.maxSize) {
-            grid = templates.grid;
-
-            Invoke("Spawn", 0.5f);
+            Invoke("Spawn", 0.1f);
+        }
+        
+        if (templates.size > templates.maxSize) {
+            Invoke("SpawnDeadEnds", 0.1f);
         }
     }
 
@@ -32,36 +38,52 @@ public class RoomSpawner : MonoBehaviour
             if (openingDirection == 1) {
                 // BOTTOM DOOR
                 rand = Random.Range(0, templates.bottomRooms.Length);
-                room = templates.bottomRooms[rand];
-                newRoom = Instantiate(room, transform.position, room.transform.rotation);
-                newRoom.transform.SetParent(grid.transform);
+                rooms = templates.bottomRooms;
             } else if (openingDirection == 2) {
                 // TOP DOOR
                 rand = Random.Range(0, templates.topRooms.Length);
-                room = templates.topRooms[rand];
-                newRoom = Instantiate(room, transform.position, room.transform.rotation);
-                newRoom.transform.SetParent(grid.transform);
+                rooms = templates.topRooms;
             } else if (openingDirection == 3) {
                 // LEFT DOOR
                 rand = Random.Range(0, templates.leftRooms.Length);
-                room = templates.leftRooms[rand];
-                newRoom = Instantiate(room, transform.position, room.transform.rotation);
-                newRoom.transform.SetParent(grid.transform);
+                rooms = templates.leftRooms;
             } else if (openingDirection == 4) {
                 // RIGHT DOOR
                 rand = Random.Range(0, templates.rightRooms.Length);
-                room = templates.rightRooms[rand];
-                newRoom = Instantiate(room, transform.position, room.transform.rotation);
-                newRoom.transform.SetParent(grid.transform);
+                rooms = templates.rightRooms;
             }
+
+            newRoom = rooms[rand];
+            newRoom = Instantiate(newRoom, transform.position, newRoom.transform.rotation);
+            newRoom.transform.SetParent(grid.transform);
+            
+            spawned = true;
+            templates.size++;
+        }
+    }
+
+    void SpawnDeadEnds() {
+        deadEnds = templates.deadEnds;
+        if (spawned == false) {
+            newRoom = deadEnds[openingDirection-1];
+            newRoom = Instantiate(newRoom, transform.position, newRoom.transform.rotation);
+            newRoom.transform.SetParent(grid.transform);
             spawned = true;
             templates.size++;
         }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Spawn Point") && other.GetComponent<RoomSpawner>().spawned == true) {
-            Destroy(gameObject);
+        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+        grid = templates.grid;
+        
+        if (other.CompareTag("Spawn Point")) {
+            if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false) {
+                newClosedRoom = Instantiate(templates.closedRoom, transform.position, templates.closedRoom.transform.rotation);
+                newClosedRoom.transform.SetParent(grid.transform);
+                Destroy(gameObject);
+            }
+            spawned = true;
         }
     }
 }
