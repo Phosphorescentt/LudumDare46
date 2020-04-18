@@ -66,13 +66,12 @@ public class ProjectileController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll) {
 
 
-       if(coll.gameObject.tag == "player") {
-            Debug.Log("Player hit");
+       if(coll.gameObject.tag == "player" || coll.gameObject.tag == "enemy") {
             HealthController health = coll.gameObject.GetComponent<HealthController>();
 
             health.takeDamage(damage);
             Destroy(gameObject);
-       }
+       } 
     }
 
 }

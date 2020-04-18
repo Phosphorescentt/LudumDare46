@@ -33,7 +33,6 @@ public class PlayerShooter : MonoBehaviour
 
         if(cooldown <= 0){
             Vector3 pos = this.transform.position + transform.right;
-            Debug.Log(pos);
             GameObject projectile = Instantiate(projectile_prefab, pos, Quaternion.identity);
             projectile.GetComponent<ProjectileController>().setDirection(-transform.right);
             projectile.GetComponent<ProjectileController>().setSpeed(shoot_speed);

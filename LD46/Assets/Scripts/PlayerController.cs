@@ -10,12 +10,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public PlayerShooter shooter;
     public InventoryManager inv;
+    public UIManager ui;
 
     // Start is called before the first frame update
     void Start()
     {
 
         rb = this.gameObject.GetComponent<Rigidbody2D>();
+
 
     }
 

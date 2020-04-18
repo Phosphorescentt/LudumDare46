@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-
-    public float health = 100;
-
+    public float max_health;
+    private float health;
+    public bool is_player = false;
     // Start is called before the first frame update
     void Start()
     {
+        health = max_health;
         
     }
 
@@ -22,7 +23,42 @@ public class HealthController : MonoBehaviour
     public void takeDamage(int dmg)
     {
 
+        if(is_player) {
+            this.gameObject.GetComponent<PlayerController>().ui.changeHealth(dmg);
+        }
+
         health -= dmg;
+
+        if(health == 0) {
+
+            if(is_player) {
+                // End game
+            } else {
+
+                die();
+
+            }
+
+        }
+
+    }
+
+    private void die() {
+
+        // Do some animation
+        Destroy(gameObject);
+
+    }
+
+    public float get_health() {
+
+        return health;
+
+    }
+
+    public void set_health(int new_health) {
+
+        health = new_health;
 
     }
 
