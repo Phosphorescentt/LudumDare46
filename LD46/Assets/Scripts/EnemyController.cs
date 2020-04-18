@@ -28,13 +28,16 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
 
-        Vector2 dist = this.transform.position - player.transform.position;
+        Vector3 dist = this.transform.position - player.transform.position;
 
         if (dist.magnitude < range && dist.magnitude > stopping_dist || !ranged)
         {
             Debug.DrawLine(this.transform.position, player.transform.position);
-            rb.MovePosition(rb.position - (dist.normalized*speed) * Time.deltaTime);
+            rb.velocity = -dist.normalized * speed;
+        } else if(dist.magnitude <= stopping_dist) {
+            rb.velocity = Vector3.zero;
         }
+
 
         if(dist.magnitude < attack_range && !throwing) {
 
@@ -47,7 +50,7 @@ public class EnemyController : MonoBehaviour
 
     public void throw_projectile(GameObject obj){
 
-        Vector2 dir = (this.transform.position - obj.transform.position).normalized;
+        Vector3 dir = (this.transform.position - obj.transform.position).normalized;
         GameObject projectile = Instantiate(projectile_prefab, this.transform.position, Quaternion.identity);
         projectile.GetComponent<ProjectileController>().setDirection(dir);
         projectile.GetComponent<ProjectileController>().setSpeed(throw_speed);

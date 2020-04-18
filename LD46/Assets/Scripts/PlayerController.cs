@@ -20,33 +20,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(Input.GetKey("up")) {
-
-            rb.MovePosition(rb.position + (Vector2.up * speed) * Time.deltaTime);
-
-        }
-
-
-        if(Input.GetKey("down")) {
-
-            rb.MovePosition(rb.position + (Vector2.down * speed) * Time.deltaTime);
-
-        }
-
-
-        if(Input.GetKey("left")) {
-
-            rb.MovePosition(rb.position + (Vector2.left * speed) * Time.deltaTime);
-
-        }
-
-
-        if(Input.GetKey("right")) {
-
-            rb.MovePosition(rb.position + (Vector2.right * speed) * Time.deltaTime);
-
-        }
         
 
         if (Input.GetKeyUp("b"))
@@ -54,11 +27,14 @@ public class PlayerController : MonoBehaviour
             health.bleed(5, 10);
         }
     }
+    
+    void FixedUpdate() {
 
-    void OnCollisionEnter2D(Collision2D coll) {
-
-        Debug.Log("Colliding Player");
+        rb.velocity = new Vector3(Input.GetAxis("Horizontal") * speed,
+                                  Input.GetAxis("Vertical") * speed,
+                                  0f);
 
     }
+
 
 }

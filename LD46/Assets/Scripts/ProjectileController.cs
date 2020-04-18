@@ -7,7 +7,7 @@ public class ProjectileController : MonoBehaviour
 {
 
     public int damage;
-    private Vector2 dir;
+    private Vector3 dir;
     public int lifespan;
     private float throw_speed;
     private Rigidbody2D rb;
@@ -15,24 +15,16 @@ public class ProjectileController : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
     
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
+        StartCoroutine(thrown());
         
     }
 
     // Update is called once per frame
     void Update()
     {
-       try {
 
-            rb.MovePosition(rb.position + (this.dir*throw_speed) * Time.deltaTime);
-            StartCoroutine(thrown());
+        this.gameObject.transform.position = this.gameObject.transform.position - (dir*throw_speed) * Time.deltaTime;
 
-       } catch (NullReferenceException e) {
-
-           Debug.Log("No direction specified");
-
-       }
-    
     }
 
     public IEnumerator thrown() {
@@ -42,7 +34,7 @@ public class ProjectileController : MonoBehaviour
 
     }
 
-    public void setDirection(Vector2 direction) {
+    public void setDirection(Vector3 direction) {
 
         this.dir = direction;
 
@@ -55,7 +47,7 @@ public class ProjectileController : MonoBehaviour
     }
 
 
-    //public IEnumerator throw_enum(GameObject projectile, Vector2 dir, int loopDuration, float throw_speed) {
+    //public IEnumerator throw_enum(GameObject projectile, Vector3 dir, int loopDuration, float throw_speed) {
 
     //    float time = 0.0f;
 
