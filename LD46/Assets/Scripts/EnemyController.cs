@@ -5,15 +5,15 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 
-    GameObject player;
+    private PlayerController player;
     public float range = 5;
-    public float speed = 0.7f;
     public bool ranged = true;
+    public float speed = 0.7f;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("player");  
+        player = GameObject.Find("player").GetComponent<PlayerController>();  
     }
 
     // Update is called once per frame

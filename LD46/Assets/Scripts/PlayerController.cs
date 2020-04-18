@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public float speed = 1;
+    public HealthController health;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,11 @@ public class PlayerController : MonoBehaviour
 
             this.transform.position = this.transform.position + (Vector3.right * speed) * Time.deltaTime;
 
+        }
+
+        if (Input.GetKeyUp("b"))
+        {
+            health.bleed(5, 10);
         }
     }
 }
