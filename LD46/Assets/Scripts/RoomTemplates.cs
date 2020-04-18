@@ -9,6 +9,8 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] topRooms;
     public GameObject[] leftRooms;
     public GameObject[] rightRooms;
+    public GameObject[] deadEnds;
+    public GameObject closedRoom;
 
     public int size;
     public int maxSize;
