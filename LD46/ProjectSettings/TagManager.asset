@@ -4,11 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - projectile
-  - player
-  - enemy
   - Spawn Point
   - Rooms
+  - player
+  - projectile
   layers:
   - Default
   - TransparentFX
@@ -45,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1403120741
     locked: 0
