@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public HealthController health;
     private Rigidbody2D rb;
     public PlayerShooter shooter;
+    public InventoryManager inv;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,13 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("Shooting");
             shooter.shoot();            
+
+        }
+
+        if(Input.GetButtonUp("Fire2")) {
+
+            Debug.Log("Using Item");
+            inv.items[inv.active_item].use();
 
         }
 
