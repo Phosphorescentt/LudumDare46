@@ -66,6 +66,7 @@ public class ProjectileController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll) {
 
         Debug.Log("Colliding");
+        Debug.Log(coll.gameObject.tag);
 
        if(coll.gameObject.tag == "player") {
             Debug.Log("Player hit");

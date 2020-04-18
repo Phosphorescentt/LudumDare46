@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         Vector3 dist = this.transform.position - player.transform.position;
@@ -35,6 +35,8 @@ public class EnemyController : MonoBehaviour
             Debug.DrawLine(this.transform.position, player.transform.position);
             rb.velocity = -dist.normalized * speed;
         } else if(dist.magnitude <= stopping_dist) {
+            rb.velocity = Vector3.zero;
+        } else if(dist.magnitude > range) {
             rb.velocity = Vector3.zero;
         }
 
@@ -51,7 +53,7 @@ public class EnemyController : MonoBehaviour
     public void throw_projectile(GameObject obj){
 
         Vector3 dir = (this.transform.position - obj.transform.position).normalized;
-        GameObject projectile = Instantiate(projectile_prefab, this.transform.position, Quaternion.identity);
+        GameObject projectile = Instantiate(projectile_prefab, this.transform.position + dir*-0.2f, Quaternion.identity);
         projectile.GetComponent<ProjectileController>().setDirection(dir);
         projectile.GetComponent<ProjectileController>().setSpeed(throw_speed);
         StartCoroutine(wait_for_throw());
