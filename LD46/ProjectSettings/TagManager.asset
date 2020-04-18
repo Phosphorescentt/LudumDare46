@@ -4,6 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - projectile
+  - player
+  - enemy
   - Spawn Point
   - Rooms
   layers:

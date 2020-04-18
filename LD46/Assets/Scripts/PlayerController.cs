@@ -6,42 +6,36 @@ public class PlayerController : MonoBehaviour
 {
 
     public float speed = 1;
+    public HealthController health;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        rb = this.gameObject.GetComponent<Rigidbody2D>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("up"))
+        
+
+        if (Input.GetKeyUp("b"))
         {
-
-            this.transform.position = this.transform.position + Vector3.up * speed * Time.deltaTime;
-
-        }
-
-        if (Input.GetKey("down"))
-        {
-
-            this.transform.position = this.transform.position + Vector3.down * speed * Time.deltaTime;
-
-        }
-
-        if (Input.GetKey("left"))
-        {
-
-            this.transform.position = this.transform.position + Vector3.left * speed * Time.deltaTime;
-
-        }
-
-        if (Input.GetKey("right"))
-        {
-
-            this.transform.position = this.transform.position + Vector3.right * speed * Time.deltaTime;
-
+            health.bleed(5, 10);
         }
     }
+    
+    void FixedUpdate() {
+
+        rb.velocity = new Vector3(Input.GetAxis("Horizontal") * speed,
+                                  Input.GetAxis("Vertical") * speed,
+                                  0f);
+
+    }
+
+
+
 }
